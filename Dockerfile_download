@@ -1,0 +1,30 @@
+# Use a base image that includes Miniconda
+FROM continuumio/miniconda3
+
+# Set environment variables for VK
+ENV API_VK_LOGIN=
+ENV API_VK_PASSWORD=
+ENV API_VK_TOKEN=
+
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Create a new conda environment with Python 3.10
+RUN conda create -n tts_data1 python=3.10 -y
+
+# Activate the environment and install dependencies
+RUN /bin/bash -c "source activate tts_data1 && pip install -r requirements.txt"
+
+# Install FFmpeg
+RUN apt-get update && apt-get install -y ffmpeg
+
+# Copy the rest of the application code into the container
+COPY . .
+RUN mkdir -p DOWNLOADS
+
+# Run the main script
+CMD ["/bin/bash", "-c", "source activate tts_data1 && python3 main_download.py --csv-path test_urls.txt --dataset-path DOWNLOADS/ --logging-path DOWNLOADS/test_logs.txt --num-workers 2"]

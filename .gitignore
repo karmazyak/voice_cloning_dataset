@@ -1,0 +1,8 @@
+.env
+__pycache__
+*.wav
+*.pickle
+.vk_config.v2.json
+.vscode
+DOWNLOADS
+SAVE_FOLDER

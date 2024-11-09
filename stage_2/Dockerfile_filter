@@ -1,0 +1,21 @@
+# Use a base image that includes Miniconda
+FROM continuumio/miniconda3
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Create a new conda environment with Python 3.11
+RUN conda create -n filter python=3.11 -y
+
+# Activate the environment and install dependencies
+RUN /bin/bash -c "source activate filter && pip install -r requirements.txt"
+
+COPY . .
+RUN mkdir -p /DATA/PICKLES/
+RUN mkdir -p /DATA/BAD_CUTS/
+
+# Run the main script
+CMD ["/bin/bash", "-c", "source activate filter && python3 filter.py"]

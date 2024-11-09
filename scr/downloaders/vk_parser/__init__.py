@@ -1,0 +1,1 @@
+from scr.downloaders.vk_parser.parsing_vk import download_audio_vk_video

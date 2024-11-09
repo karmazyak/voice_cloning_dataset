@@ -1,0 +1,6 @@
+id,url,quality,source,author
+1,https://vk.com/video292039158_456240381,1,vk,user1
+2,https://vk.com/video292039158_456240380,2,vk,user1
+3,https://vk.com/video292039158_456240378,3,vk,user1
+4,https://rutube.ru/video/c710e653f26694c0624efa7a8dfa7a41/,2,rutube,user2
+5,https://rutube.ru/video/f5192c90bb9669d5a1c05e88b5ad36b5/,3,rutube,user2
