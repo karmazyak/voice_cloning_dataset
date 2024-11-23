@@ -128,12 +128,11 @@ def download_rutube(url, output_dir, rate=None, print_stats=True, return_numpy=T
             'auto_text': None
         }
     
-    if(return_numpy):
+    if return_numpy:
         audio_numpy = librosa.load(audio_file_path, sr=rate)
         temp_dict['np_audio'] = audio_numpy[0]
         temp_dict['time'] = librosa.get_duration(y=audio_numpy[0], sr=audio_numpy[1])
         return temp_dict
 
     return temp_dict
-    
-    
+
