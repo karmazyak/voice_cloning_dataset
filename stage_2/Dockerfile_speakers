@@ -1,0 +1,24 @@
+# Use a base image that includes Miniconda
+FROM continuumio/miniconda3
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements_speakers.txt .
+
+# Create a new conda environment with Python 3.11
+RUN conda create -n speakers python=3.11 -y
+
+
+# Activate the environment and install dependencies
+RUN /bin/bash -c "source activate speakers && pip install -r requirements_speakers.txt"
+
+COPY . .
+
+
+RUN mkdir -p /DATA/PICKLES/
+RUN mkdir -p /DATA/REMOVE_FILES/
+RUN mkdir -p /RESULTS/
+# Run the main script
+CMD ["/bin/bash", "-c", "source activate speakers && python3 update_files.py"]

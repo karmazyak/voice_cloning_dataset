@@ -27,4 +27,4 @@ COPY . .
 RUN mkdir -p DOWNLOADS
 
 # Run the main script
-CMD ["/bin/bash", "-c", "source activate tts_data1 && python3 main_download.py --csv-path test_urls.txt --dataset-path DOWNLOADS/ --logging-path DOWNLOADS/test_logs.txt --num-workers 2"]
+CMD ["/bin/bash", "-c", "source activate tts_data1 && python3 main_download.py --csv-path DATASET/data_part_vk_all.csv --dataset-path DOWNLOADS/ --logging-path DOWNLOADS/test_logs_VK.txt --num-workers 1"]

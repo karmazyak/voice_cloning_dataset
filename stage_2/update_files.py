@@ -13,18 +13,20 @@ class Configs:
     
     Атрибуты:
         FOLDER_PATH (str): Путь к директории с датасетом, содержащим аудиофайлы.
-        skeakers_file_path (str): Путь до CSV-файла с результатами распознавания спикеров.
+        speakers_file_path (str): Путь до CSV-файла с результатами распознавания спикеров.
         max_workers (int): Кол-во параллеобных потоков.
     """
-    FOLDER_PATH = "/home/jovyan/dataset/"
-    skeakers_file_path = "./speaker_data_all.csv"
+    FOLDER_PATH = "/DATA/PICKLES/" #mount dir
+    SAVE_RESULT_FOLDER = "/RESULTS/" #mount dir
+    speakers_file_path = "speaker_data_all.csv"
     max_workers = 30
 
 
 def process_file(
     file_name: str,
     gender: str,
-    speaker_id: int):
+    speaker_id: int
+):
     """
     Обрабатывает один файл: добавляет данные по гендеру и идентификатору говорящего.
 
@@ -60,7 +62,12 @@ def read_data(file_csv: str):
 
 
 if __name__ == "__main__":
-    all_data = read_data(Configs.skeakers_file_path)
+    all_data = read_data(
+        os.path.join(
+            Configs.SAVE_RESULT_FOLDER,
+            Configs.speakers_file_path
+        )
+    )
     with ThreadPoolExecutor(max_workers=Configs.max_workers) as executor:
         futures = []
         with tqdm(total=len(all_data), desc="Processing files") as pbar:

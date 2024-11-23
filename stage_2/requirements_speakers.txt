@@ -1,0 +1,10 @@
+numpy==1.26.4
+pandas
+scipy
+tqdm
+torch
+torchaudio
+pyannote.audio
+librosa
+jiwer
+transformers

@@ -37,7 +37,7 @@ class Configs:
     whisper_model_name = "turbo"
     device = "cuda:1"
     wada_snr_score_filter = 20
-    cer_thresh = 0.10
+    cer_thresh = 0.0
 
 
 class Filter:
@@ -174,13 +174,12 @@ class Filter:
         """
         Запускает процесс фильтрации файлов.
         """
-        if self.filenames is None:
-            for filename in tqdm(os.listdir(self.path_pickles)):
+        filenames = self.filenames if self.filenames else os.listdir(self.path_pickles)
+        for filename in tqdm(filenames):
+            try:
                 self.refactor_pickle(filename)
-        else:
-            for filename in tqdm(self.filenames):
-                self.refactor_pickle(filename)
-
+            except:
+                continue
 
 
 def run(path_pickles, path_bad_cuts, filenames=None):

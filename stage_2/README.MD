@@ -17,35 +17,28 @@
 Установка зависимостей
 
 
-### Установка зависимостей
-Перед запуском необходимо установить необходимые зависимости.
-
-```sh
-pip install -r requirements.txt
-```
-
-
 ### Заупск
 ---
 1. Часть фильтрации.
 
 * <b>Необходимо обновть Configs в файле filter.py.</b> Нужно обновить все необходимые поля.
 
+#chnage mount source dirs
 ```sh
 docker build -t filter_image -f Dockerfile_filter .
 docker run -it --mount type=bind,source=/opt/datasets/FINAL_TRANSCRIPTIONS/,target=/DATA/PICKLES/ --mount type=bind,source=/opt/datasets/FINAL_BAD_CUTS/,target=/DATA/BAD_CUTS/ --gpus all filter_image
 ```
 ---
 2. Часть разделения по спикерам.
+<b>Необходимо обновть Configs в файле speaker.py.</b> Нужно обновить все необходимые поля.
+#chnage mount source dirs
+```sh
+docker build -t cluster_speakers -f Dockerfile_speakers .
+docker run -it --mount type=bind,source=/opt/datasets/TTS_DATASET/,target=/DATA/PICKLES/ --mount type=bind,source=/opt/datasets/TTS_DATASET_INFO/,target=/RESULTS/ --mount type=bind,source=/opt/datasets/TTS_DATASET_NO_SPEAKER/,target=/DATA/REMOVE_FILES/ --gpus all cluster_speakers
+```
+
 
 * <b>Необходимо обновть Configs в файле speakers.py и update_files.py.</b> Нужно обновить все необходимые поля!
 *   speakers.py - создает csv файл с полями (название файла; гендр; speaker_id)
 * speakers.py - сохраняет файлы со средним эмбеддингми спикеров для male и female отдельно.
 * Обновляет pikle файлы и добавляет все необходимые поля.
-
-
-```sh
-python3 speakers.py
-python3 update_files.py
-```
----
